@@ -1,28 +1,20 @@
 #!/usr/bin/python3
-"""
-Module task1 about how to export data in the CSV format
-"""
-
+"""Import Modules"""
+import csv
+import requests
 from sys import argv
-from requests import get
-
-url_base = 'https://jsonplaceholder.typicode.com/users/'
-
-
-def export_csv():
-    """"""
-    usr = get(url_base + argv[1]).json()
-    tasks = get(url_base + argv[1] + '/todos').json()
-    file_name = argv[1] + '.csv'
-
-    for task in tasks:
-        data = '"' + str(usr['id']) + '",' + '"' + usr['username'] + '",' +\
-               '"' + str(task['completed']) + '",' + '"' + task['title'] +\
-               '"\n'
-
-        with open(file_name, 'a', encoding='utf-8') as csvfile:
-            csvfile.write(data)
-
 
 if __name__ == '__main__':
-    export_csv()
+    url_users = requests.get('https://jsonplaceholder.typicode.com/users')
+    url_todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+
+    for i in url_users.json():
+        if i['id'] == int(argv[1]):
+            username = i['username']
+    with open(f"{argv[1]}.csv", 'w') as f:
+        for i in url_todos.json():
+            if i['userId'] == int(argv[1]):
+                completed = i['completed']
+                title = i['title']
+                f.write("\"{}\",\"{}\",\"{}\",\"{}\"\n".
+                        format(argv[1], username, completed, title))

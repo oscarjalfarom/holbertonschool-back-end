@@ -14,4 +14,4 @@ Scripts to query information from a [REST API](https://jsonplaceholder.typicode.
   * [`3-infinite_add.py`](./3-dictionary_of_list_of_dictionaries.py)
 
 ## Author
-* Felipe Villamizar - [GitHub](https://github.com/felipevcc)
+* Oscar J Alfaro M - [GitHub](https://github.com/oscarjalfarom)
