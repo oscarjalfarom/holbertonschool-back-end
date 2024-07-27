@@ -5,8 +5,9 @@ Gather data from an API
 import requests
 import sys
 
+
 def gather_data(employee_id):
-    """Fetch and display employee TODO list progress"""
+    """Fetch and display employee TODO list progress."""
     api_uri = "https://jsonplaceholder.typicode.com/"
 
     try:
@@ -26,7 +27,10 @@ def gather_data(employee_id):
         total_tasks_done = len(done_tasks)
 
         # Print results
-        print(f"Employee {emp_name} is done with tasks({total_tasks_done}/{total_tasks}):")
+        print(
+            f"Employee {emp_name} is done with tasks("
+            f"{total_tasks_done}/{total_tasks}):"
+        )
         for task in done_tasks:
             print(f"\t {task.get('title')}")
 
@@ -34,6 +38,7 @@ def gather_data(employee_id):
         print(f"Error fetching data from API: {e}")
     except ValueError as e:
         print(f"Invalid data received: {e}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
