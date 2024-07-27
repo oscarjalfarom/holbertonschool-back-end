@@ -1,14 +1,30 @@
 #!/usr/bin/python3
-"""Returns to-do list information for a given employee ID."""
+"""
+Module for task0 about request and API
+"""
+
 import requests
-import sys
+from sys import argv
 
-if __name__ == "__main__":
-    url = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(url + "users/{}".format(sys.argv[1])).json()
-    todos = requests.get(url + "todos", params={"userId": sys.argv[1]}).json()
+url_base = 'https://jsonplaceholder.typicode.com/users/'
 
-    completed = [t.get("title") for t in todos if t.get("completed") is True]
-    print("Employee {} is done with tasks({}/{}):".format(
-        user.get("name"), len(completed), len(todos)))
-    [print("\t {}".format(c)) for c in completed]
+
+def get_data():
+    """ This function get data of the placeholders API """
+    name = requests.get(url_base + argv[1]).json()
+    todos = requests.get(url_base + argv[1] + '/todos/').json()
+    count = 0
+    title = ""
+
+    for item in todos:
+        if item['completed'] is True:
+            title += "\t {}\n".format(item['title'])
+            count += 1
+
+    print("Employee {} is done with tasks({}/20):\n{}".format(name['name'],
+                                                              count, title),
+          end='')
+
+
+if __name__ == '__main__':
+    get_data()
